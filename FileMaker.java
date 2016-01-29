@@ -23,6 +23,11 @@ public class FileMaker {
         }catch(IOException e){
 	    e.printStackTrace();
         }
+
+	List<String> team = new ArrayList<String>();
+	team.add(teamNum);
+	appendLine("TEAMS.txt", team);
+
     }
 
     //preconds, filename is full, including .txt.

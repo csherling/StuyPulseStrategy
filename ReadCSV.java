@@ -24,6 +24,7 @@ public class ReadCSV{
 
 	catch(IOException e) {
 	    System.err.print(e);
+	    System.out.println("Error in Reading the File");
 	}
 	return info;
     }
