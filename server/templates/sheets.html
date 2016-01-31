@@ -8,7 +8,7 @@
 <div class="container">
     <div id="status"></div>
     <center>
-        <a href="#new-sheet-modal" role="button" class="btn btn-primary" data-toggle"modal">New Sheet</a>
+        <a href="#new-sheet-modal" role="button" class="btn btn-primary" data-toggle="modal">New Sheet</a>
     </center>
     <br>
     <table class="table table-responsive">
@@ -21,18 +21,60 @@
                 <th></th>
             </tr>
         </thead>
+        {% if sheets %}
+        {% for sheet in sheets %}
         <tbody>
             <tr>
-                <td>Q1</td>
-                <td>694</td>
+                <td>{{ sheet.mid }}</td>
+                <td>{{ sheet.tid }}</td>
                 <td></td>
                 <td></td>
                 <td class="text-right">
                     <a style="text-align: right" class="btn btn-primary" href="/sheets/edit">Edit</a>
-                    <button name="delete" style="text-align: right" class="btn btn-primary" value="qid">Delete</a>
+                    <button name="delete" style="text-align: right" class="btn btn-primary" value="{{ sheet.sid }}">Delete</a>
                 </td>
             </tr>
         </tbody>
+        {% endfor %}
+        {% endif %}
     </table>
 </div>
+
+<div class="modal fade" id="new-sheet-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+
+        <form id="new-sheet-form">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New Sheet</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div id="new-sheet-status"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="mid">Match:</label>
+                                <input class="form-control" id="mid" required="true">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tid">Team Number:</label>
+                                <input type="number" class="form-control" id="tid" min="0" step="1" required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="new-sheet" type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/sheet.js') }}"></script>
 {% endblock body %}

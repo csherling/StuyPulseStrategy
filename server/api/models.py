@@ -15,3 +15,12 @@ class Matches(db.Model):
 
     def __init__(self, mid):
         self.mid = mid;
+
+class Sheets(db.Model):
+    sid = db.Column(db.Integer, unique=True, primary_key=True)
+    mid = db.Column(db.String(16))
+    tid = db.Column(db.Integer)
+
+    def __init__(self, mid, tid):
+        self.mid = mid
+        self.tid = tid

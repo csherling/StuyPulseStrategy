@@ -7,11 +7,12 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 app.register_blueprint(api.team.blueprint, url_prefix="/api/team")
+app.register_blueprint(api.sheet.blueprint, url_prefix="/api/sheet")
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:password@localhost/strategy"
 
 with app.app_context():
     # Initialize tables/databases to be used by SQLAlchemy
-    from api.models import db, Teams, Matches
+    from api.models import db, Matches, Sheets, Teams
     db.init_app(app)
     db.create_all()
 
@@ -33,7 +34,7 @@ def matches():
 
 @app.route("/sheets", methods=["GET", "POST"])
 def sheets():
-    return render_template("sheets.html")
+    return render_template("sheets.html", sheets=api.sheet.get_sheets())
 
 if __name__ == "__main__":
     app.debug = "--debug" in sys.argv

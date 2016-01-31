@@ -45,15 +45,3 @@ function delete_team(tid, button) {
         }
     });
 }
-
-// Remove and animate table row
-function remove_row(item) {
-    item.closest("tbody")
-        .find('td')
-        .wrapInner('<div style="display: block;" />')
-        .parent()
-        .find('td > div')
-        .slideUp("fast", "swing", function(){
-            $(this).parent().parent().remove();
-        });
-}
