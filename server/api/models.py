@@ -20,7 +20,9 @@ class Sheets(db.Model):
     sid = db.Column(db.Integer, unique=True, primary_key=True)
     mid = db.Column(db.String(16))
     tid = db.Column(db.Integer)
+    alliance = db.Column(db.String(16))
 
-    def __init__(self, mid, tid):
+    def __init__(self, mid, tid, alliance):
         self.mid = mid
         self.tid = tid
+        self.alliance = alliance
