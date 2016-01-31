@@ -1,3 +1,9 @@
 #!/bin/bash
 
-echo "Installing dependencies"
+pwd=$(pwd)
+if [[ "$pwd" != */server ]]; then
+    echo "Please run this inside the server folder of the repo"
+    exit 1
+fi
+
+python app.py $1
