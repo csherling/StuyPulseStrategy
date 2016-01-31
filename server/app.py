@@ -21,7 +21,7 @@ def index():
 
 @app.route("/teams", methods=["GET", "POST"])
 def teams():
-    return render_template("teams.html")
+    return render_template("teams.html", teams=api.team.get_teams())
 
 @app.route("/sheets", methods=["GET", "POST"])
 def sheets():

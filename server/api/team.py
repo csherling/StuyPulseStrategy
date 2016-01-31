@@ -14,12 +14,10 @@ def add_team_request():
     return {"success": 1, "message" : "Team added"}
 
 @blueprint.route("/delete", methods=["POST"])
-@blueprint.route("/delete/<tid>", methods=["POST"])
 @api_wrapper
-def delete_team_request(tid=None):
-    if tid is None:
-        form = request.form
-        tid = form.get("tid")
+def delete_team_request():
+    form = request.form
+    tid = form.get("tid")
     delete_team(tid)
     return {"success": 1, "message" : "Team deleted"}
 
@@ -34,3 +32,7 @@ def delete_team(tid):
     with app.app_context():
         db.session.delete(team)
         db.session.commit()
+
+def get_teams():
+    teams = Teams.query.all();
+    return teams

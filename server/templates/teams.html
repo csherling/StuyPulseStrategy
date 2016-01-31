@@ -20,17 +20,21 @@
                 <th></th>
             </tr>
         </thead>
+        {% if teams %}
+        {% for team in teams %}
         <tbody>
             <tr>
-                <td>694</td>
-                <td>694</td>
-                <td>694</td>
+                <td>{{ team.tid }}</td>
+                <td></td>
+                <td></td>
                 <td class="text-right">
-                    <a style="text-align: right" class="btn btn-primary" href="/teams/694">View</a>
-                    <a style="text-align: right" class="btn btn-primary" href="/api/team/delete/694">Delete</a>
+                    <a style="text-align: right" class="btn btn-primary" href="/teams/{{ team.tid }}">View</a>
+                    <button name="delete" style="text-align: right" class="btn btn-primary" value="{{ team.tid }}">Delete</a>
                 </td>
             </tr>
         </tbody>
+        {% endfor %}
+        {% endif %}
     </table>
 </div>
 
