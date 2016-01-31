@@ -4,4 +4,35 @@
 <center>
     <h2>Sheets</h2>
 </center>
+
+<div class="container">
+    <div id="status"></div>
+    <center>
+        <a href="#new-sheet-modal" role="button" class="btn btn-primary" data-toggle"modal">New Sheet</a>
+    </center>
+    <br>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Match</th>
+                <th>Team</th>
+                <th>More stuff</th>
+                <th>Even more stuff</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Q1</td>
+                <td>694</td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    <a style="text-align: right" class="btn btn-primary" href="/sheets/edit">Edit</a>
+                    <button name="delete" style="text-align: right" class="btn btn-primary" value="qid">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock body %}

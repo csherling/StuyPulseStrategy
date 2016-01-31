@@ -28,8 +28,12 @@ def teams(tid=None):
         return render_template("view_team.html", team=api.team.get_team(tid))
 
 @app.route("/matches", methods=["GET", "POST"])
-def sheets():
+def matches():
     return render_template("matches.html")
+
+@app.route("/sheets", methods=["GET", "POST"])
+def sheets():
+    return render_template("sheets.html")
 
 if __name__ == "__main__":
     app.debug = "--debug" in sys.argv
