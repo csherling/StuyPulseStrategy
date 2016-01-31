@@ -7,10 +7,11 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 app.register_blueprint(api.team.blueprint, url_prefix="/api/team")
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:password@localhost/strategy"
 
 with app.app_context():
     # Initialize tables/databases to be used by SQLAlchemy
-    from api.models import db
+    from api.models import db, Teams, Matches
     db.init_app(app)
     db.create_all()
 
