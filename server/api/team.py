@@ -28,7 +28,7 @@ def add_team(tid):
         db.session.commit()
 
 def delete_team(tid):
-    team = Teams.query.filter_by(tid=tid).first()
+    team = get_team(tid)
     with app.app_context():
         db.session.delete(team)
         db.session.commit()
@@ -36,3 +36,7 @@ def delete_team(tid):
 def get_teams():
     teams = Teams.query.all();
     return teams
+
+def get_team(tid):
+    team = Teams.query.filter_by(tid=tid).first()
+    return team

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if team %}
+<center>
+    <h2>Team {{ team.tid }}</h2>
+</center>
+{% else %}
+<center>
+    <h2>Team not found</h2>
+</center>
+{% endif %}
+{% endblock body %}
