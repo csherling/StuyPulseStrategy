@@ -1,7 +1,9 @@
 from flask import Blueprint, current_app as app, request
 
+import sheet
+
 from decorators import api_wrapper
-from models import db, Teams
+from models import db, Sheets, Teams
 
 blueprint = Blueprint("team", __name__)
 
@@ -29,9 +31,15 @@ def add_team(tid):
 
 def delete_team(tid):
     team = get_team(tid)
+    sheets = Sheets.query.filter_by(tid=tid).all()
     with app.app_context():
         db.session.delete(team)
         db.session.commit()
+
+    for sheet in sheets:
+        with app.app_context():
+            db.session.delete(sheet)
+            db.session.commit()
 
 def get_teams():
     teams = Teams.query.all();
