@@ -55,13 +55,21 @@ def update_sheet_request():
     form = request.form
     sid = form.get("sid")
     mid = form.get("mid")
+    tid = form.get("tid")
+    alliance = form.get("alliance")
 
     if not validate_match(mid):
         # Match id does not match the regex
         raise WebException("Invalid match id.")
 
-    tid = form.get("tid")
-    alliance = form.get("alliance")
+    if not match.match_exists(mid):
+        # Match does not exist yet, so create one
+        match.add_match(mid)
+
+    if not team.team_exists(tid):
+        # Team does not exist yet, so create one
+        team.add_team(tid)
+
     update_sheet(sid, mid, tid, alliance)
     return {"success": 1, "message": "Sheet updated."}
 
