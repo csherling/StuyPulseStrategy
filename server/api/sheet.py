@@ -52,9 +52,13 @@ def new_sheet(tid, mid, alliance):
 
 def delete_sheet(sid):
     sheet = get_sheet(sid)
+    mid = sheet.mid
     with app.app_context():
         db.session.delete(sheet)
         db.session.commit()
+
+    if len(match.get_match_sheets(mid)) == 0:
+        match.delete_match(mid)
 
 def update_sheet(sid, mid, tid, alliance):
     sheet = get_sheet(sid)
@@ -65,10 +69,10 @@ def update_sheet(sid, mid, tid, alliance):
         db.session.add(sheet)
         db.session.commit()
 
-def get_sheets():
-    sheets = Sheets.query.all()
-    return sheets
-
 def get_sheet(sid):
     sheet = Sheets.query.filter_by(sid=sid).first()
     return sheet
+
+def get_sheets():
+    sheets = Sheets.query.order_by("mid asc").all()
+    return sheets
