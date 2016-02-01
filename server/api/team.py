@@ -11,7 +11,7 @@ blueprint = Blueprint("team", __name__)
 @api_wrapper
 def add_team_request():
     form = request.form
-    tid = form.get("tid")
+    tid = form.get("tid").lstrip("0")
     if team_exists(tid):
         raise WebException("Team already exists.")
     add_team(tid)

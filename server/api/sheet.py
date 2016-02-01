@@ -1,6 +1,7 @@
 from flask import Blueprint, current_app as app, request
 
 import match
+import re
 import team
 
 from decorators import api_wrapper, WebException
@@ -12,9 +13,13 @@ blueprint = Blueprint("sheet", __name__)
 @api_wrapper
 def new_sheet_request():
     form = request.form
-    tid = form.get("tid")
-    mid = form.get("mid")
+    tid = form.get("tid").lstrip("0")
+    mid = form.get("mid").strip()
     alliance = form.get("alliance")
+
+    if not validate_match(mid):
+        raise WebException("Invalid match id.")
+
     if not match.match_exists(mid):
         match.add_match(mid)
 
@@ -42,6 +47,9 @@ def update_sheet_request():
     form = request.form
     sid = form.get("sid")
     mid = form.get("mid")
+    if not validate_match(mid):
+        raise WebException("Invalid match id.")
+
     tid = form.get("tid")
     alliance = form.get("alliance")
     update_sheet(sid, mid, tid, alliance)
@@ -79,3 +87,6 @@ def get_sheet(sid):
 def sheet_exists(tid, mid, alliance):
     sheet = Sheets.query.filter_by(tid=tid, mid=mid, alliance=alliance).first()
     return sheet is not None
+
+def validate_match(mid):
+    return re.match("^(P|Q)\d+$", mid) is not None
