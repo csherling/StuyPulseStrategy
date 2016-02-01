@@ -3,7 +3,7 @@ from flask import Blueprint, current_app as app, request
 import match
 import team
 
-from decorators import api_wrapper
+from decorators import api_wrapper, WebException
 from models import db, Sheets
 
 blueprint = Blueprint("sheet", __name__)
@@ -20,6 +20,9 @@ def new_sheet_request():
 
     if not team.team_exists(tid):
         team.add_team(tid)
+
+    if sheet_exists(tid, mid, alliance):
+        raise WebException("Sheet already exists.")
 
     new_sheet(tid, mid, alliance)
 
@@ -72,3 +75,7 @@ def get_sheets():
 def get_sheet(sid):
     sheet = Sheets.query.filter_by(sid=sid).first()
     return sheet
+
+def sheet_exists(tid, mid, alliance):
+    sheet = Sheets.query.filter_by(tid=tid, mid=mid, alliance=alliance).first()
+    return sheet is not None

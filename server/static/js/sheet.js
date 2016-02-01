@@ -47,7 +47,7 @@ function new_sheet(mid, tid, alliance) {
                 $("#new-sheet").removeAttr("disabled");
             });
         } else {
-            display_message("new-sheet-status", "warning", data["message"], function() {
+            display_message("new-sheet-status", "danger", data["message"], function() {
                 $("#new-sheet").removeAttr("disabled");
             });
         }

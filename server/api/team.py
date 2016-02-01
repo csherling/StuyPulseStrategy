@@ -2,7 +2,7 @@ from flask import Blueprint, current_app as app, request
 
 import sheet
 
-from decorators import api_wrapper
+from decorators import api_wrapper, WebException
 from models import db, Sheets, Teams
 
 blueprint = Blueprint("team", __name__)
@@ -12,8 +12,10 @@ blueprint = Blueprint("team", __name__)
 def add_team_request():
     form = request.form
     tid = form.get("tid")
+    if team_exists(tid):
+        raise WebException("Team already exists.")
     add_team(tid)
-    return {"success": 1, "message" : "Team added"}
+    return {"success": 1, "message" : "Team added."}
 
 @blueprint.route("/delete", methods=["POST"])
 @api_wrapper
@@ -21,7 +23,7 @@ def delete_team_request():
     form = request.form
     tid = form.get("tid")
     delete_team(tid)
-    return {"success": 1, "message" : "Team deleted"}
+    return {"success": 1, "message" : "Team deleted."}
 
 def add_team(tid):
     team = Teams(tid)
