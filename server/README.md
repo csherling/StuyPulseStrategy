@@ -9,4 +9,4 @@ make sure that [this](https://github.com/csherling/StuyPulseStrategy/blob/flask-
 
 2. Run `./deploy`, with an optional `--debug` flag to enable debug mode.
 
-3. View the server at [localhost:1337](localhost:1337).
+3. View the server at [localhost:1337](http://localhost:1337).

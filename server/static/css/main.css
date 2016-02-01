@@ -1,1 +1,1 @@
-no-underline a, a:hover {text-decoration:none !important;}.red{color: red;}.blue{color: blue;}
+no-underline a,a:hover,a:link{text-decoration:none !important;}.red{color: red;}.blue{color: blue;}

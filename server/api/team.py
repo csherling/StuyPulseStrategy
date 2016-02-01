@@ -40,3 +40,7 @@ def get_teams():
 def get_team(tid):
     team = Teams.query.filter_by(tid=tid).first()
     return team
+
+def team_exists(tid):
+    team = get_team(tid)
+    return team is not None

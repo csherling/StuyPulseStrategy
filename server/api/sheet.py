@@ -1,5 +1,8 @@
 from flask import Blueprint, current_app as app, request
 
+import match
+import team
+
 from decorators import api_wrapper
 from models import db, Sheets
 
@@ -13,6 +16,12 @@ def new_sheet_request():
     mid = form.get("mid")
     alliance = form.get("alliance")
     new_sheet(tid, mid, alliance)
+    if not match.match_exists(mid):
+        match.add_match(mid)
+
+    if not team.team_exists(tid):
+        team.add_team(tid)
+
     return {"success": 1, "message": "Sheet created."}
 
 @blueprint.route("/delete", methods=["POST"])
