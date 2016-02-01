@@ -13,8 +13,11 @@ def add_team_request():
     """Handle api request for adding a new team to the database."""
     form = request.form
     tid = form.get("tid").lstrip("0")
+
     if team_exists(tid):
+        # Team with that number already exists in the database
         raise WebException("Team already exists.")
+
     add_team(tid)
     return {"success": 1, "message" : "Team added."}
 
@@ -56,6 +59,7 @@ def delete_team(tid):
         db.session.delete(team)
         db.session.commit()
 
+    # Remove all sheets belonging to the now deleted team
     for sheet in sheets:
         with app.app_context():
             db.session.delete(sheet)
@@ -113,6 +117,11 @@ def get_matches(tid):
     """
     sheets = get_sheets(tid)
     mids = []
+
+    # Get the match ids for all sheets belonging to the team
     for sheet in sheets:
         mids.append(sheet.mid)
-    return Match.query.filter(Match.mid.in_(mids)).all()
+
+    # Retrieve all matches where the mid is in the list of mids
+    matches = Match.query.filter(Match.mid.in_(mids)).all()
+    return matches

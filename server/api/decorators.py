@@ -41,9 +41,11 @@ def api_wrapper(f):
         try:
             web_result = f(*args, **kwds)
         except WebException as error:
+            # WebException was intentionally raised, and nothing fatal has occurred.
             response = 200
             web_result = { "success": 0, "message": str(error) }
         except Exception as error:
+            # Exception was raised when trying to run the function.
             response = 200
             traceback.print_exc()
             web_result = { "success": 0, "message": "Something went wrong!", "error": [ str(error), traceback.format_exc() ] }

@@ -19,17 +19,22 @@ def new_sheet_request():
     alliance = form.get("alliance")
 
     if not validate_match(mid):
+        # Match id does not match the regex
         raise WebException("Invalid match id.")
 
     if not match.match_exists(mid):
+        # Match does not exist yet, so create one
         match.add_match(mid)
 
     if not team.team_exists(tid):
+        # Team does not exist yet, so create one
         team.add_team(tid)
 
     if sheet_exists(tid, mid, alliance):
+        # Duplicate sheet exists, so alert the user
         raise WebException("Sheet already exists.")
 
+    # Create a new sheet
     new_sheet(tid, mid, alliance)
 
     return {"success": 1, "message": "Sheet created."}
@@ -50,7 +55,9 @@ def update_sheet_request():
     form = request.form
     sid = form.get("sid")
     mid = form.get("mid")
+
     if not validate_match(mid):
+        # Match id does not match the regex
         raise WebException("Invalid match id.")
 
     tid = form.get("tid")
@@ -149,4 +156,17 @@ def sheet_exists(tid, mid, alliance):
     return sheet is not None
 
 def validate_match(mid):
+    """
+    Regex for matching (P)ractice and (Q)ualification match ids.
+
+    Parameters
+    ----------
+    mid : str
+        Match id to be validated.
+
+    Example
+    -------
+    if validate_match("Q2"):
+        print "Valid match id!"
+    """
     return re.match("^(P|Q)\d+$", mid) is not None
