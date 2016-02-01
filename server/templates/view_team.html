@@ -5,6 +5,13 @@
 <center>
     <h2>Team {{ team.tid }}</h2>
 </center>
+
+<div class="container">
+    <center>
+        <a href="/sheets/{{ team.tid }}" class="btn btn-primary">View sheets</a>
+        <a href="/matches/{{ team.tid }}" class="btn btn-primary">View matches</a>
+    </center>
+</div>
 {% else %}
 <center>
     <h2>Team not found</h2>
