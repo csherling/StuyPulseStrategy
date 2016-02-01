@@ -2,11 +2,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# To add more fields later
-
 class Teams(db.Model):
     tid = db.Column(db.Integer, unique=True, primary_key=True) # Team number
-    matches = db.relationship("Sheets", backref="team", lazy="dynamic")
+    sheets = db.relationship("Sheets", backref="team", lazy="dynamic")
 
     def __init__(self, tid):
         self.tid = tid;
