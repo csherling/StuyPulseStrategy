@@ -1,1 +1,1 @@
-no-underline a,a:hover,a:link{text-decoration:none !important;}.red{color: red;}.blue{color: blue;}
+a:hover,a:link,no-underline a{text-decoration:none!important}.red{color:red}.blue{color:#00f}.uppercase-input{text-transform:uppercase}
