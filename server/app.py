@@ -12,7 +12,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:password@localhost/strateg
 
 with app.app_context():
     # Initialize tables/databases to be used by SQLAlchemy
-    from api.models import db, Matches, Sheets, Teams
+    from api.models import db, Match, Sheet, Team
     db.init_app(app)
     db.create_all()
 
@@ -38,7 +38,7 @@ def matches(tid=None):
 
 @app.route("/sheets", methods=["GET", "POST"])
 @app.route("/sheets/<tid>/", methods=["GET", "POST"])
-@app.route("/sheets/<tid>/<sid>", methods=["GET", "POST"])
+@app.route("/sheets/<tid>/<sid>/", methods=["GET", "POST"])
 def sheets(tid=None, sid=None):
     if tid is None and sid is None:
         return render_template("sheets.html", sheets=api.sheet.get_sheets())
