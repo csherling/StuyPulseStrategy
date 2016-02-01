@@ -15,7 +15,7 @@ def new_sheet_request():
     """Handle api request for creating a new sheet."""
     form = request.form
     tid = form.get("tid").lstrip("0")
-    mid = form.get("mid").strip()
+    mid = form.get("mid").strip().upper()
     alliance = form.get("alliance")
 
     if not validate_match(mid):
@@ -54,8 +54,8 @@ def update_sheet_request():
     """Handle api request for updating a sheet."""
     form = request.form
     sid = form.get("sid")
-    mid = form.get("mid")
-    tid = form.get("tid")
+    mid = form.get("mid").strip().upper()
+    tid = form.get("tid").lstrip("0")
     alliance = form.get("alliance")
 
     if not validate_match(mid):
