@@ -16,7 +16,6 @@
             <tr>
                 <th>Team number</th>
                 <th># of matches</th>
-                <th>Matches won</th>
                 <th></th>
             </tr>
         </thead>
@@ -25,8 +24,7 @@
         <tbody>
             <tr>
                 <td>{{ team.tid }}</td>
-                <td></td>
-                <td></td>
+                <td>{{ team.matches.count() }}</td>
                 <td class="text-right">
                     <a style="text-align: right" class="btn btn-primary" href="/teams/{{ team.tid }}">View</a>
                     <button name="delete" style="text-align: right" class="btn btn-primary" value="{{ team.tid }}">Delete</a>
