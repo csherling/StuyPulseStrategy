@@ -6,9 +6,34 @@ from functools import wraps
 
 response_header = { "Content-Type": "application/json; charset=utf-8" }
 
-class WebException(Exception): pass
+class WebException(Exception):
+    """
+    Exception to be caught by api_wrapper to display a message to the user.
+
+    See also
+    --------
+    api_wrapper
+
+    Examples
+    --------
+    if password != confirm_password:
+        raise WebException("Passwords do not match!")
+    """
+    pass
 
 def api_wrapper(f):
+    """
+    Wrapper for api routes.
+
+    Handles exceptions and returns relevant data in json for parsing.
+
+    Examples
+    -------
+    @app.route("/", methods=["POST", "GET"])
+    @api_wrapper
+    def index():
+        ...
+    """
     @wraps(f)
     def wrapper(*args, **kwds):
         web_result = {}
