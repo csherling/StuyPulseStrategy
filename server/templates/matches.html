@@ -20,7 +20,7 @@
                 <div class="col-sm-12">
                     {% if match.sheets %}
                     {% for sheet in match.sheets %}
-                    <a class="col-sm-2 {{ sheet.alliance.split(" ")[0].lower() }}" href="/sheet/{{ sheet.tid }}">{{ sheet.tid }}</a>
+                    <a class="col-sm-2 {{ sheet.alliance.split(" ")[0].lower() }}" href="/sheets/{{ sheet.tid }}/{{ sheet.sid }}">{{ sheet.tid }}</a>
                     {% endfor %}
                     {% endif %}
                 </div>

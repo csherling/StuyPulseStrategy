@@ -33,8 +33,15 @@ def matches():
     return render_template("matches.html", sheets=api.sheet.get_sheets(), matches=api.match.get_matches())
 
 @app.route("/sheets", methods=["GET", "POST"])
-def sheets():
-    return render_template("sheets.html", sheets=api.sheet.get_sheets())
+@app.route("/sheets/<tid>/", methods=["GET", "POST"])
+@app.route("/sheets/<tid>/<sid>", methods=["GET", "POST"])
+def sheets(tid=None, sid=None):
+    if tid is None and sid is None:
+        return render_template("sheets.html", sheets=api.sheet.get_sheets())
+    elif sid is None:
+        return render_template("view_sheet.html", team=api.team.get_team(tid), sheets=api.team.get_sheets(tid))
+    else:
+        return render_template("view_sheet.html", team=api.team.get_team(tid), sheets=[api.sheet.get_sheet(sid)])
 
 if __name__ == "__main__":
     app.debug = "--debug" in sys.argv

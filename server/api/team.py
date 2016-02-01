@@ -33,7 +33,7 @@ def add_team(tid):
 
 def delete_team(tid):
     team = get_team(tid)
-    sheets = Sheets.query.filter_by(tid=tid).all()
+    sheets = get_sheets(tid)
     with app.app_context():
         db.session.delete(team)
         db.session.commit()
@@ -54,3 +54,7 @@ def get_team(tid):
 def team_exists(tid):
     team = get_team(tid)
     return team is not None
+
+def get_sheets(tid):
+    sheets = Sheets.query.filter_by(tid=tid).all()
+    return sheets
