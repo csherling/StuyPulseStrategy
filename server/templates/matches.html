@@ -6,28 +6,27 @@
 </center>
 
 <div class="container">
+    {% if matches %}
+    {% for match in matches %}
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a class="no-underline" data-toggle="collapse" style="display: block" href="#q1">Q1
-                    <span style="float: right">
-                    <div class="badge">Winner</div>
-                    <span style="color: red">Red Alliance</span>
-                </a>
+                <a class="no-underline" data-toggle="collapse" style="display: block" href="#{{ match.mid.lower() }}">{{ match.mid }}</a>
             </h4>
         </div>
         <div id="q1" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="col-sm-12">
-                    <a class="col-sm-2 red" href="/sheet/694">694</a>
-                    <a class="col-sm-2 red" href="/sheet/694">694</a>
-                    <a class="col-sm-2 red" href="/sheet/694">694</a>
-                    <a class="col-sm-2 blue" href="/sheet/694">694</a>
-                    <a class="col-sm-2 blue" href="/sheet/694">694</a>
-                    <a class="col-sm-2 blue" href="/sheet/694">694</a>
+                    {% if sheets %}
+                    {% for sheet in sheets %}
+                    <a class="col-sm-2 {{ sheet.alliance.split(" ")[0].lower() }}" href="/sheet/{{ sheet.tid }}">{{ sheet.tid }}</a>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
+    {% endif %}
 </div>
 {% endblock body %}

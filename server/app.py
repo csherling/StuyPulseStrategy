@@ -30,7 +30,7 @@ def teams(tid=None):
 
 @app.route("/matches", methods=["GET", "POST"])
 def matches():
-    return render_template("matches.html")
+    return render_template("matches.html", sheets=api.sheet.get_sheets(), matches=api.match.get_matches())
 
 @app.route("/sheets", methods=["GET", "POST"])
 def sheets():
