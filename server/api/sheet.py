@@ -15,12 +15,13 @@ def new_sheet_request():
     tid = form.get("tid")
     mid = form.get("mid")
     alliance = form.get("alliance")
-    new_sheet(tid, mid, alliance)
     if not match.match_exists(mid):
         match.add_match(mid)
 
     if not team.team_exists(tid):
         team.add_team(tid)
+
+    new_sheet(tid, mid, alliance)
 
     return {"success": 1, "message": "Sheet created."}
 

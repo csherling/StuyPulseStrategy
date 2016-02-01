@@ -14,11 +14,11 @@
                 <a class="no-underline" data-toggle="collapse" style="display: block" href="#{{ match.mid.lower() }}">{{ match.mid }}</a>
             </h4>
         </div>
-        <div id="q1" class="panel-collapse collapse">
+        <div id="{{ match.mid.lower() }}" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="col-sm-12">
-                    {% if sheets %}
-                    {% for sheet in sheets %}
+                    {% if match.sheets %}
+                    {% for sheet in match.sheets %}
                     <a class="col-sm-2 {{ sheet.alliance.split(" ")[0].lower() }}" href="/sheet/{{ sheet.tid }}">{{ sheet.tid }}</a>
                     {% endfor %}
                     {% endif %}
