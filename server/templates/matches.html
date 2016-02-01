@@ -2,7 +2,11 @@
 
 {% block body %}
 <center>
+{% if team %}
+<h2>Matches for team {{ team.tid }}</h2>
+{% else %}
     <h2>Matches</h2>
+{% endif %}
 </center>
 
 <div class="container">
