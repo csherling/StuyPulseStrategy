@@ -21,12 +21,6 @@ def add_match(mid):
         db.session.add(match)
         db.session.commit()
 
-def delete_match(mid):
-    match = get_match(mid)
-    with app.app_context():
-        db.session.delete(match)
-        db.session.commit()
-
 def match_exists(mid):
     match = get_match(mid)
     return match is not None
