@@ -29,8 +29,12 @@ def teams(tid=None):
         return render_template("view_team.html", team=api.team.get_team(tid))
 
 @app.route("/matches", methods=["GET", "POST"])
-def matches():
-    return render_template("matches.html", sheets=api.sheet.get_sheets(), matches=api.match.get_matches())
+@app.route("/matches/<tid>", methods=["GET", "POST"])
+def matches(tid=None):
+    if tid is None:
+        return render_template("matches.html", sheets=api.sheet.get_sheets(), matches=api.match.get_matches())
+    else:
+        return render_template("matches.html", team=api.team.get_team(tid), matches=api.team.get_matches(tid))
 
 @app.route("/sheets", methods=["GET", "POST"])
 @app.route("/sheets/<tid>/", methods=["GET", "POST"])

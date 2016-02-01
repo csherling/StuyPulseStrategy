@@ -3,7 +3,7 @@ from flask import Blueprint, current_app as app, request
 import sheet
 
 from decorators import api_wrapper, WebException
-from models import db, Sheets, Teams
+from models import db, Matches, Sheets, Teams
 
 blueprint = Blueprint("team", __name__)
 
@@ -58,3 +58,10 @@ def team_exists(tid):
 def get_sheets(tid):
     sheets = Sheets.query.filter_by(tid=tid).all()
     return sheets
+
+def get_matches(tid):
+    sheets = get_sheets(tid)
+    mids = []
+    for sheet in sheets:
+        mids.append(sheet.mid)
+    return Matches.query.filter(Matches.mid.in_(mids)).all()
