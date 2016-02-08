@@ -24,7 +24,11 @@
                 <div class="col-sm-12">
                     {% if match.sheets %}
                     {% for sheet in match.sheets %}
-                    <a class="col-sm-2 {{ sheet.alliance.split(" ")[0].lower() }}" href="/sheets/{{ sheet.tid }}/{{ sheet.sid }}">{{ sheet.tid }}</a>
+                        {% if team and sheet.tid == team.tid %}
+                        <a style="text-decoration: underline" class="col-sm-2 {{ sheet.alliance.split(" ")[0].lower() }}" href="/sheets/{{ sheet.tid }}/{{ sheet.sid }}">{{ sheet.tid }}</a>
+                        {% else %}
+                        <a class="col-sm-2 {{ sheet.alliance.split(" ")[0].lower() }}" href="/sheets/{{ sheet.tid }}/{{ sheet.sid }}">{{ sheet.tid }}</a>
+                        {% endif %}
                     {% endfor %}
                     {% endif %}
                 </div>
