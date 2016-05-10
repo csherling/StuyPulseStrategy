@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.register_blueprint(api.team.blueprint, url_prefix="/api/team")
 app.register_blueprint(api.sheet.blueprint, url_prefix="/api/sheet")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:password@localhost/strategy"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///strategy.db"
 
 with app.app_context():
     # Initialize tables/databases to be used by SQLAlchemy
