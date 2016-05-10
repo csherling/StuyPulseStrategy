@@ -14,7 +14,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///strategy.db"
 
 with app.app_context():
     # Initialize tables/databases to be used by SQLAlchemy
-    from api.models import db, Match, Sheet, Team
+    from api.models import db, Matches, Sheets, Teams
     db.init_app(app)
     db.create_all()
 

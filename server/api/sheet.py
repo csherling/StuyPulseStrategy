@@ -5,7 +5,7 @@ import re
 import team
 
 from decorators import api_wrapper, WebException
-from models import db, Sheet
+from models import db, Sheets
 
 blueprint = Blueprint("sheet", __name__)
 
@@ -86,7 +86,7 @@ def new_sheet(tid, mid, alliance):
     alliance : str
         Team alliance for match (i.e: Blue Alliance).
     """
-    sheet = Sheet(mid, tid, alliance)
+    sheet = Sheets(mid, tid, alliance)
     with app.app_context():
         db.session.add(sheet)
         db.session.commit()
@@ -131,7 +131,7 @@ def update_sheet(sid, mid, tid, alliance):
 
 def get_sheets():
     """Return all Sheet in the database"""
-    sheets = Sheet.query.all()
+    sheets = Sheets.query.all()
     return sheets
 
 def get_sheet(sid):
@@ -143,7 +143,7 @@ def get_sheet(sid):
     sid : int
         Id of the sheet to be returned.
     """
-    sheet = Sheet.query.filter_by(sid=sid).first()
+    sheet = Sheets.query.filter_by(sid=sid).first()
     return sheet
 
 def sheet_exists(tid, mid, alliance):
@@ -160,7 +160,7 @@ def sheet_exists(tid, mid, alliance):
     alliance : str
         Alliance.
     """
-    sheet = Sheet.query.filter_by(tid=tid, mid=mid, alliance=alliance).first()
+    sheet = Sheets.query.filter_by(tid=tid, mid=mid, alliance=alliance).first()
     return sheet is not None
 
 def validate_match(mid):

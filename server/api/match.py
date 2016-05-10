@@ -1,16 +1,16 @@
 from flask import Blueprint, current_app as app, request
 
 from decorators import api_wrapper
-from models import db, Match, Sheet
+from models import db, Matches, Sheets
 
 def get_match_sheets(mid):
     """Get all sheets for a specific match."""
-    sheets = Sheet.query.filter_by(mid=mid).all()
+    sheets = Sheets.query.filter_by(mid=mid).all()
     return sheets
 
 def get_match(mid):
     """Get match data from match id."""
-    match = Match.query.filter_by(mid=mid).first()
+    match = Matches.query.filter_by(mid=mid).first()
     return match
 
 def get_matches():
@@ -20,7 +20,7 @@ def get_matches():
 
 def add_match(mid):
     """Add a new match to the database."""
-    match = Match(mid)
+    match = Matches(mid)
     with app.app_context():
         db.session.add(match)
         db.session.commit()
