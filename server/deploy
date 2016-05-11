@@ -6,4 +6,9 @@ if [[ "$pwd" != */server ]]; then
     exit 1
 fi
 
-python app.py $1
+echo "Stopping the server..."
+pkill gunicorn
+tmux kill-session -t escout 2> /dev/null
+
+echo "Starting the server..."
+tmux new-session -s escout -d "tmux set remain-on-exit on && cd $PWD && gunicorn -c scripts/gunicorn.py.ini 'app:app'"

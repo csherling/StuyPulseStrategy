@@ -4,6 +4,6 @@ This server uses [Flask](http://flask.pocoo.org/), and does not require an Inter
 
 1. Ensure dependencies are installed by running the `setup.sh` script inside the `scripts` folder.
 
-2. Run `./deploy`, with an optional `--debug` flag to enable debug mode.
+2. Run `./deploy` to deploy the server.
 
-3. View the server at [localhost:1337](http://localhost:1337).
+3. View the server at [localhost:6940](http://localhost:6940).

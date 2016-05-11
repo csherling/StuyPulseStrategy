@@ -61,4 +61,4 @@ if __name__ == "__main__":
     app.debug = "--debug" in sys.argv
 
     # Run the application
-    app.run(host="0.0.0.0", port=1337)
+    app.run(host="0.0.0.0", port=6940)
