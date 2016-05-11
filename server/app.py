@@ -27,20 +27,24 @@ def index():
 def teams(tid=None):
     if tid is None:
         # View all teams
-        return render_template("teams.html", teams=api.team.get_teams())
+        teams = api.team.get_team().all()
+        return render_template("teams.html", teams=teams)
     else:
         # Overview for a specific team
-        return render_template("view_team.html", team=api.team.get_team(tid))
+        team = api.team.get_team(tid=tid).first()
+        return render_template("view_team.html", team=team)
 
 @app.route("/matches", methods=["GET", "POST"])
 @app.route("/matches/<tid>", methods=["GET", "POST"])
 def matches(tid=None):
     if tid is None:
         # View all matches
-        return render_template("matches.html", matches=api.match.get_matches())
+        matches = api.match.get_match().all()
+        return render_template("matches.html", matches=matches)
     else:
         # View all matches played by a specific team
-        return render_template("matches.html", team=api.team.get_team(tid), matches=api.team.get_matches(tid))
+        team = api.team.get_team(tid=tid).first()
+        return render_template("matches.html", team=team, matches=team.get_matches().all())
 
 @app.route("/sheets", methods=["GET", "POST"])
 @app.route("/sheets/<tid>/", methods=["GET", "POST"])
@@ -48,13 +52,17 @@ def matches(tid=None):
 def sheets(tid=None, sid=None):
     if tid is None and sid is None:
         # View all sheets
-        return render_template("sheets.html", sheets=api.sheet.get_sheets())
-    elif sid is None:
+        return render_template("sheets.html", sheets=api.sheet.get_sheet().all())
+
+    if sid is None:
         # View all sheets belonging to a specific team
-        return render_template("view_sheet.html", team=api.team.get_team(tid), sheets=api.team.get_sheets(tid))
+        team = api.team.get_team(tid=tid).first()
+        return render_template("view_sheet.html", team=team, sheets=team.sheets)
     else:
         # View one sheet belonging to a specific team for a specific match
-        return render_template("view_sheet.html", team=api.team.get_team(tid), sheets=[api.sheet.get_sheet(sid)])
+        team = api.team.get_team(tid=tid).first()
+        sheet = api.sheet.get_sheet(sid=sid).first()
+        return render_template("view_sheet.html", team=team, sheets=[sheet])
 
 if __name__ == "__main__":
     # Enable debug mode if the flag is present

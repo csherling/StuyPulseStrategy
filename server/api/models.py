@@ -3,33 +3,20 @@ from flask.ext.sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class Teams(db.Model):
-    """
-    Model representing a team being scouted.
-
-    Attributes
-    ----------
-    tid : int
-        Number of the team being scouted.
-    sheets : list of Sheetss
-        Sheetss belonging to the team.
-    """
     tid = db.Column(db.Integer, unique=True, primary_key=True) # Team number
     sheets = db.relationship("Sheets", backref="teams", lazy="dynamic")
 
     def __init__(self, tid):
         self.tid = tid;
 
-class Matches(db.Model):
-    """
-    Model representing a match.
+    def get_matches(self):
+        matches = []
+        for sheet in self.sheets:
+            match = Matches.query.filter_by(mid=sheet.mid).first()
+            matches.append(match)
+        return matches
 
-    Attributes
-    ----------
-    mid : str
-        Id of the match.
-    sheets : list of Sheetss
-        Sheetss for the match.
-    """
+class Matches(db.Model):
     mid = db.Column(db.String(16), unique=True, primary_key=True) # Match id (Q1, Q2, etc)
     sheets = db.relationship("Sheets", backref="matches", lazy="dynamic")
 
@@ -37,20 +24,6 @@ class Matches(db.Model):
         self.mid = mid;
 
 class Sheets(db.Model):
-    """
-    Model representing a scouting sheet.
-
-    Attributes
-    ----------
-    sid : int
-        Id of the sheet.
-    mid : str
-        Id of the match being scouted.
-    tid : int
-        Id of the team being scouted.
-    alliance : str
-        Alliance of the team being scouted.
-    """
     sid = db.Column(db.Integer, unique=True, primary_key=True)
     mid = db.Column(db.String(16), db.ForeignKey("matches.mid"))
     tid = db.Column(db.Integer, db.ForeignKey("teams.tid"))
